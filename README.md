@@ -11,3 +11,4 @@ To run the SSR example, run:
 
 -   npm run build
 -   npm run start-ssr
+-   visit [http://localhost:7071/api/app](http://localhost:7071/api/app)
