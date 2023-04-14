@@ -1,0 +1,12 @@
+{
+	"name": "mf-az-func-node-v4",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"build": "rm -r ./api/dist || true && cd func-client && npm run build && cd ../api && npm run build",
+		"start-ssr": "concurrently \"cd remote && npm run start\" \"cd api && func start\""
+	},
+	"devDependencies": {
+		"concurrently": "8.0.1"
+	}
+}

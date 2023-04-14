@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "composite": true,
+    "moduleResolution": "node",
+    "paths": {
+      "remote/*": ["./remote/src/components/*"]
+    }
+  },
+  "files": [],
+  "exclude": ["node_modules", "dist"]
+}
