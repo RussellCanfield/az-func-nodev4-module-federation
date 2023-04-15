@@ -7,7 +7,22 @@ This repo is built upon the [Azure Functions Node V4 Programming Model](https://
 
 The AZ Func -> CSR is not fully configured due to cyclical dependencies with typescript project references. However, you just have to point the remote file of the CSR app, to the /api/chunks route in the Azure function.
 
-To run the SSR example, run:
+To run the SSR example:
+
+If it doesn't exist, under the _api_ folder create _local.settings.json_ with the following content:
+
+```javascript
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing"
+  }
+}
+```
+
+Then run:
 
 -   npm run build
 -   npm run start-ssr

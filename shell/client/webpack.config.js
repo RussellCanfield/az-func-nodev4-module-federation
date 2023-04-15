@@ -3,11 +3,12 @@ const { ModuleFederationPlugin } = require("webpack").container;
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
-	entry: "./src/index",
+	entry: {
+		main: "./src/index",
+	},
 	mode: "development",
 	output: {
 		path: path.join(__dirname, "../api/dist/src"),
-		clean: true,
 		publicPath: "http://localhost:7071/api/chunks/",
 	},
 	resolve: {
@@ -22,7 +23,7 @@ module.exports = {
 				exclude: /node_modules/,
 				options: {
 					presets: [
-						"@babel/preset-react",
+						["@babel/preset-react", { runtime: "automatic" }],
 						"@babel/preset-typescript",
 					],
 				},
@@ -38,6 +39,16 @@ module.exports = {
 			},
 			exposes: {
 				"./Provider": "./src/components/Provider",
+			},
+			shared: {
+				react: {
+					singleton: true,
+					requiredVersion: false,
+				},
+				"react-dom": {
+					singleton: true,
+					requiredVersion: false,
+				},
 			},
 		}),
 	],

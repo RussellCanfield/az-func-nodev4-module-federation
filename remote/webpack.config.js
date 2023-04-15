@@ -41,6 +41,16 @@ module.exports = {
 			exposes: {
 				"./Widget": "./src/components/Widget",
 			},
+			shared: {
+				react: {
+					singleton: true,
+					requiredVersion: false,
+				},
+				"react-dom": {
+					singleton: true,
+					requiredVersion: false,
+				},
+			},
 		}),
 		new HtmlWebpackPlugin({
 			template: "./public/index.html",

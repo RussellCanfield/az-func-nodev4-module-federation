@@ -1,9 +1,10 @@
 import { app } from "@azure/functions";
-import { renderToPipeableStream } from "react-dom/server";
+import { renderToPipeableStream, renderToString } from "react-dom/server";
 import MemoryStream from "memory-stream";
 import fs from "fs";
 import path from "path";
-import Root from "./root";
+import { App, Main } from "./client";
+import { StaticRouter } from "react-router-dom/server";
 
 app.http("getChunks", {
 	route: "chunks/{*filePath}",
@@ -19,7 +20,8 @@ app.http("getChunks", {
 app.http("app", {
 	methods: ["GET"],
 	handler: async (request, context) => {
-		const responseBody = await createResponseBody(<Root />);
+		//This should really be using the Main component from func-client, but TS wasn't cooperating.
+		const responseBody = await createResponseBody(<Main />);
 
 		return {
 			body: responseBody,
@@ -44,7 +46,6 @@ async function createResponseBody(reactElement): Promise<string> {
 				resolve(outputStream);
 			},
 			bootstrapScripts: [assetMap["main.js"]],
-			// Careful: It's safe to stringify() this because this data isn't user-generated.
 			bootstrapScriptContent: `window.assetMap = ${JSON.stringify(
 				assetMap
 			)};`,

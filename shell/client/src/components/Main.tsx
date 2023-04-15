@@ -1,3 +1,5 @@
+import Router from "./Router";
+
 export default function Root() {
 	return (
 		<html>

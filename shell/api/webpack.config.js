@@ -7,17 +7,27 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
 	entry: {
-		main: "./src/noop.js",
+		index: "./src/index.tsx",
+		client: "./src/client.tsx",
 	},
+	devtool: false,
 	mode: "development",
 	output: {
 		path: path.join(__dirname, "/dist/src"),
-		clean: true,
+		libraryTarget: "commonjs-module",
 	},
-	target: "web",
+	target: "node",
 	resolve: {
-		extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+		extensions: [".tsx", ".ts", ".jsx", ".js"],
 		plugins: [new TsconfigPathsPlugin()],
+	},
+	externals: {
+		"@azure/functions": "@azure/functions",
+		fs: "fs",
+		path: "path",
+		stream: "stream",
+		buffer: "buffer",
+		util: "util",
 	},
 	module: {
 		rules: [
@@ -27,7 +37,7 @@ module.exports = {
 				exclude: /node_modules/,
 				options: {
 					presets: [
-						"@babel/preset-react",
+						["@babel/preset-react", { runtime: "automatic" }],
 						"@babel/preset-typescript",
 					],
 				},

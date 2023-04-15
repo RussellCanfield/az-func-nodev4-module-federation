@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"build": "rm -r ./api/dist || true && cd func-client && npm run build && cd ../api && npm run build",
-		"start-ssr": "concurrently \"cd remote && npm run start\" \"cd api && func start\""
+		"build": "rm -r ./shell/api/dist || true && cd ./shell/client && npm run build && cd ../api && npm run build",
+		"start-ssr": "concurrently \"cd remote && npm run start\" \"cd shell/api && npm run start\""
 	},
 	"devDependencies": {
 		"concurrently": "8.0.1"
