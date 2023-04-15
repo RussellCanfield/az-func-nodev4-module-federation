@@ -3,13 +3,11 @@
 This repo is built upon the [Azure Functions Node V4 Programming Model](https://azure.microsoft.com/en-us/updates/public-preview-azure-functions-v4-programming-model-for-nodejs/) and demonstrates the ability to federate two different ways.
 
 -Federating from a CSR to the Azure Function SSR content.
--Federating from the Azure Function to a CSR app.
+-Federating from the Azure Function SSR to a CSR app.
 
-The AZ Func -> CSR is not fully configured due to cyclical dependencies with typescript project references. However, you just have to point the remote file of the CSR app, to the /api/chunks route in the Azure function.
+To run the example:
 
-To run the SSR example:
-
-If it doesn't exist, under the _api_ folder create _local.settings.json_ with the following content:
+If it doesn't exist, under the _shell/api_ folder create _local.settings.json_ with the following content:
 
 ```javascript
 {
@@ -25,5 +23,6 @@ If it doesn't exist, under the _api_ folder create _local.settings.json_ with th
 Then run:
 
 -   npm run build
--   npm run start-ssr
--   visit [http://localhost:7071/api/app](http://localhost:7071/api/app)
+-   npm run start
+-   visit [http://localhost:7071/api/app](http://localhost:7071/api/app) for the SSR app
+-   visit [http://localhost:8080/client](http://localhost:8080/client) for the CSR app

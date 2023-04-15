@@ -3,18 +3,18 @@ const { ModuleFederationPlugin } = require("webpack").container;
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
-	entry: {
-		main: "./src/index",
-	},
+	entry: ["@babel/polyfill", path.resolve(__dirname, "./src/index")],
 	mode: "development",
+	devtool: false,
 	output: {
-		path: path.join(__dirname, "../api/dist/src"),
+		path: path.join(__dirname, "../api/dist/client"),
 		publicPath: "http://localhost:7071/api/chunks/",
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
 		plugins: [new TsconfigPathsPlugin()],
 	},
+	target: "web",
 	module: {
 		rules: [
 			{
@@ -32,21 +32,19 @@ module.exports = {
 	},
 	plugins: [
 		new ModuleFederationPlugin({
-			name: "remote",
+			name: "shell",
 			filename: "remote.js",
 			remotes: {
-				remote: "remote@http://localhost:8080/remote.js",
+				remote: "remote@http://localhost:8080/client/remote.js",
 			},
 			exposes: {
 				"./Provider": "./src/components/Provider",
 			},
 			shared: {
 				react: {
-					singleton: true,
 					requiredVersion: false,
 				},
 				"react-dom": {
-					singleton: true,
 					requiredVersion: false,
 				},
 			},

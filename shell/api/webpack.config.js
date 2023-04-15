@@ -1,22 +1,23 @@
 const path = require("path");
+const deps = require("./package.json").dependencies;
 const {
+	UniversalFederationPlugin,
 	NodeFederationPlugin,
 	StreamingTargetPlugin,
 } = require("@module-federation/node");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
-	entry: {
-		index: "./src/index.tsx",
-		client: "./src/client.tsx",
-	},
+	name: "server",
+	entry: ["@babel/polyfill", path.resolve(__dirname, "./src/index")],
 	devtool: false,
 	mode: "development",
 	output: {
-		path: path.join(__dirname, "/dist/src"),
+		path: path.join(__dirname, "/dist/server"),
+		filename: "index.js",
 		libraryTarget: "commonjs-module",
 	},
-	target: "node",
+	target: false,
 	resolve: {
 		extensions: [".tsx", ".ts", ".jsx", ".js"],
 		plugins: [new TsconfigPathsPlugin()],
@@ -28,6 +29,12 @@ module.exports = {
 		stream: "stream",
 		buffer: "buffer",
 		util: "util",
+	},
+	node: {
+		__dirname: false,
+	},
+	stats: {
+		colors: true,
 	},
 	module: {
 		rules: [
@@ -46,18 +53,21 @@ module.exports = {
 	},
 	plugins: [
 		new NodeFederationPlugin({
-			name: "host",
+			name: "shell",
 			library: { type: "commonjs-module" },
-			filename: "remote.js",
+			filename: "remoteEntry.js",
 			remotes: {
-				remote: "remote@http://localhost:8080/remote.js",
+				remote: "remote@http://localhost:8080/server/remote.js",
+				fake: "promise new Promise((resolve) => {resolve({get:()=>Promise.resolve(()=>{}),init:()=>{}})})",
 			},
+			shared: [],
 		}),
 		new StreamingTargetPlugin({
-			name: "host",
+			name: "shell",
 			library: { type: "commonjs-module" },
 			remotes: {
-				remote: "remote@http://localhost:8080/remote.js",
+				remote: "remote@http://localhost:8080/server/remote.js",
+				fake: "promise new Promise((resolve) => {resolve({get:()=>Promise.resolve(()=>{}),init:()=>{}})})",
 			},
 		}),
 	],
