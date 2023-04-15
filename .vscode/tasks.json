@@ -9,7 +9,7 @@
 			"isBackground": true,
 			"dependsOn": "npm build (functions)",
 			"options": {
-				"cwd": "${workspaceFolder}/api"
+				"cwd": "${workspaceFolder}/shell/api"
 			}
 		},
 		{
@@ -19,7 +19,7 @@
 			"dependsOn": "npm install (functions)",
 			"problemMatcher": "$tsc",
 			"options": {
-				"cwd": "${workspaceFolder}/api"
+				"cwd": "${workspaceFolder}/shell/api"
 			}
 		},
 		{
@@ -27,7 +27,7 @@
 			"label": "npm install (functions)",
 			"command": "npm install",
 			"options": {
-				"cwd": "${workspaceFolder}/api"
+				"cwd": "${workspaceFolder}/shell/api"
 			}
 		},
 		{
@@ -37,7 +37,7 @@
 			"dependsOn": "npm build (functions)",
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/api"
+				"cwd": "${workspaceFolder}/shell/api"
 			}
 		}
 	]
