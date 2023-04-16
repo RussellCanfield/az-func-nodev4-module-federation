@@ -23,7 +23,7 @@ module.exports = {
 		plugins: [new TsconfigPathsPlugin()],
 	},
 	externals: {
-		"@azure/functions": "@azure/functions",
+		"@azure/functions-core": "@azure/functions-core",
 		fs: "fs",
 		path: "path",
 		stream: "stream",
