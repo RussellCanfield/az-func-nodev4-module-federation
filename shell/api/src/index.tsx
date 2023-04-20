@@ -4,10 +4,7 @@ import MemoryStream from "memory-stream";
 import fs from "fs";
 import path from "path";
 import { App } from "./client";
-import React from "react";
 import { getModule } from "@module-federation/utilities";
-
-import("fake");
 
 app.http("module", {
 	methods: ["GET"],
@@ -35,7 +32,6 @@ app.http("getChunks", {
 	methods: ["GET"],
 	handler: (request, context) => {
 		const { filePath } = request.params;
-		console.log(process.cwd(), __dirname, path.resolve(__dirname));
 		return {
 			body: fs.readFileSync(path.join(__dirname, "../client", filePath)),
 		};
